@@ -1,290 +1,143 @@
-<div>
-
-<button id='newProduct' type="button" class="btn btn-warning">add new product</button>
-
-<div id='backOpts'>
-
-<div  class="btn-group-vertical" id='f'><li><h3>Most Popular product</h3></li></div>
-	<div class='list-item'>
-        &nbsp{{mostPopularProd.name}}&nbsp
-	      <div id='order'>
-	      <div class="btn-group">
-  		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    		      Options <span class="caret"></span>
-  	   	</button>
-  		  <ul class="dropdown-menu" role="menu">
-    			  <li><a href="#">Order </a></li>
-    			  <li><a href="#">Supplier Details</a></li>
-    			  <li><a href="#">Compare Prices</a></li>
-    			  <li class="divider"></li>
-    			  <li><a href="#">Product perfomance</a></li>
-  		  </ul>
-	</div>
-	</div>
-	
-</div>
-
-<div  class="btn-group-vertical"><li><h3>Least Popular product</h3></li></div>
-	<div class='list-item' >
-        &nbsp{{{leastPopularProd.name}}}&nbsp
-	      <div id='order'>
-	      <div class="btn-group">
-  		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    		Options <span class="caret"></span>
-  		  </button>
-  		  <ul class="dropdown-menu" role="menu">
-    			  <li><a href="#">Order </a></li>
-    			  <li><a href="#">Supplier Details</a></li>
-    			  <li><a href="#">Compare Prices</a></li>
-    			  <li class="divider"></li>
-    			  <li><a href="#">Product perfomance</a></li>
-  		  </ul>
-	</div>
-	</div>
-</div>
+<script type='text/javascript' src='productsHandle.js'></script>
+<div class = 'container'>
 
 
-<div  class="btn-group-vertical"><li><h3>Most Popular category</h3></li></div>
-	<div class='list-item'> &nbsp{{{mostPop.name}}}&nbsp
-	<div id='order'>
-	<div class="btn-group">
-  		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    		Options <span class="caret"></span>
-  		</button>
-  		<ul class="dropdown-menu" role="menu">
-    			<li><a href="#">Order </a></li>
-    			<li><a href="#">Supplier Details</a></li>
-    			<li><a href="#">Compare Prices</a></li>
-    			<li class="divider"></li>
-    			<li><a href="#">Category perfomance</a></li>
-  		</ul>
-	</div>
-	</div>
-
-</div>
-
-<div  class="btn-group-vertical"><li><h3>Least Popular category</h3></li></div>
-   <div class='list-item'> &nbsp{{{leastPop.name}}}&nbsp
-   <div id='order'>
-	<div class="btn-group">
-  		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    		Options <span class="caret"></span>
-  		</button>
-  		<ul class="dropdown-menu" role="menu">
-    			<li><a href="#">Order </a></li>
-    			<li><a href="#">Supplier Details</a></li>
-    			<li><a href="#">Compare Prices</a></li>
-    			<li class="divider"></li>
-    			<li><a href="#">Category perfomance</a></li>
-  		</ul>
-	</div>
-	</div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<span id='showProducts' class='showButton'>View &amp; Edit<br/>product list</span>
-<div id='exitProducts' class='exitButton' >close table</span></div>
-
-<div id='prods'>
-<div class="container">
   
-             
- 
+      <div id="productsMenu" class="" role="group" aria-label="...">
 
-  <form id='pf' action='products' method='post'>
+        <div class = "col-md-2 col-xs-4">
+         <button id='addProduct' type="button" class="btn btn-default ">Add product</button>
+         <button id='deleteProduct'      type="button" class="btn btn-default">Delete Product</button>
+         <button id='listProducts'       type="button" class="btn btn-default">View Product List</button>
+         <button id='productCategories'  type="button" class="btn btn-default">Product Categories</button>
+         <button id='productPerfomances' type="button" class="btn btn-default">Perfomances</button>
+         <button id='productProfits'     type="button" class="btn btn-default">Profits</button>
+         </div>
+
+       </div>
+  
+
+  <div id='main' class='col-md-8'><div id='first'><h1> Product Management Section </h1></div></div>
+
+</div>
+
+<script id="perfomances" type="text/x-handlebars-template">
+  <div id='perfomancesTable' class=".col-md-6"> 
+  <div id='mostPopular' class=".col-md-8">  
+    <h3> Most Popular Product </h3>
+    <h4> {{mostPopularProd.name}} </h4>
+  </div>
+  <div id='leastPopular' class=".col-md-8">  
+    <h3> Least Popular Product </h3>
+    <h4> {{leastPopularProd.name}} </h4>
+  </div>
+  <div id='mostPopularCat' class=".col-md-8">  
+    <h3> Most Popular Category </h3>
+    <h4> {{mostPop.name}} </h4>
+  </div
+  <div id='leastPopularCat' class=".col-md-8">  
+    <h3> Least Popular Category </h3>
+    <h4> {{leastPop.name}} </h4>
+  </div>
+  </div>
+</script>
 
 
+
+<script id="productlist" type="text/x-handlebars-template">  
   <table class="table" id='productsTable'>
-   
-
+    <h4 id='tableHead' class="label label-default">Click on a product to edit</h4>
     <thead>
       <tr>
         <th>Name</th>
         <th>Category</th>        
-        <th>Price</th>
+        <th></th>
       </tr>
     </thead>
-
     <tbody>
-    {{#each products}}
-
-      <tr id='{{prodID}}'>      
-        <td id='productName'>
-        <input type="text" name="name" value="{{name}}">        
-        <div class="glyphicon glyphicon-pencil"></div>
-        </td>        
-
-        <td id='productCat'>
-        <input type="text" name="price" value="{{category}}">
-        <div class="glyphicon glyphicon-pencil"></div>        
-        </td>   
-
-        <td id='productPrice'><input type="text" name="category" value="{{price}}">        
-        </td>       
-
-      </tr>
-
-
-
+       \{{#each products}}
+        <tr id='\{{prodID}}'>      
+          <td id='productName'>
+          <input type="text" id="prod_name\{{prodID}}" value="\{{name}}">        
         
+          </td>
+          <td id='productCat'>
+          <input type="text" id="prod_category\{{prodID}}" value="\{{category}}">
+          </td>
 
-      {{/each}}
+          <td id='edit'>
+          <button type='submit' id='updateProdBtn' class='btn btn-warning' onclick="updateProduct('#prod_name\{{prodID}}','#prod_category\{{prodID}}','\{{prodID}}')">Save Edit</button>
+                 
+          </td>
 
-
-
-
-      </tbody>
+        </tr>
+       \{{/each}}
+    </tbody>
   </table>
-  </form>
 
-  <script type='text/javascript'>
-          $.fn.center = function () {
-
-             this.css("position","absolute");
-             this.css("top", ( $(window).height() - this.height() ) / 2  + "px");
-             this.css("left", ( $(window).width() - this.width() ) / 2 + "px");
-             return this;
-
-          }
-
-          var Categories =[]
-          {{#each categories}}
-              Categories.push('{{name}}')          
-          {{/each}}
-
-          $('.table tr').keypress(function(e) {
-                            
-                            
-                       
-                            var catVal = $(this).children('td:nth-of-type(2)').find('input').val();
-
-                            
-
-                            if( e.which == 13) 
-                                {   
-                                 
-                                    if(Categories.indexOf(catVal) < 0)
-                                    {
-                                        alert('non existant category')
-                                        $("#dialog").css({position:'fixed',zIndex:'50',width:'auto',height:'auto',backgroundColor:'rgba(255,153,0,0.9)',border:'3px solid black',padding:'1%',color:'black',fontSize:'1vw',borderRadius:'20px',listStyle:'none',visibility:'visible',marginLeft:'auto',marginTop:'-60%',left:'40%',right:'40%',textAlign:'center',transition:'all .5s linear'})
-
-                                        var catStr =''
-
-                                        Categories.forEach(function(cat){
-                                            catStr+=("<li style='color:white;'>"+cat+'</li>')
-                                        })
-                                        
-                                        catStr+="<button type='submit' class='btn .btn-danger'>'Add as New'</button>"
-                                        catStr+="<p id='closeSpan'>click anywhere to close</p>"
-
-                                        $('#dialog').html(('<b>Category does not exist<br>available categories</b> <span>'+catStr+'</span>'))
-
-                                        $('#closeSpan').css({
-                                            background:'black',
-                                            color:'white',
-                                            borderRadius:'3px',
-                                            border:'1px solid orange'
-                                          })
-
-
-                                        $('#prods').css({'webkitFilter':'blur(2px)'})
-                                    }
-                                    else
-                                    { 
-                                      //alert('index :'+Categories.indexOf(catVal)+' val:'+catVal)
-                                        var prodId   =$(this).attr('id')
-                                        var newName  =$(this).find('td:first-of-type').find('input').val();
-                                        var newPrice =$(this).find('td:nth-of-type(3)').find('input').val();
-                                        var newCat   =$(this).find('td:nth-of-type(2)').find('input').val();
-
-                                        var data     ={id:prodId,name:newName,price:newPrice,cat:newCat}
-                                        alert(JSON.stringify(data));
-                                        $.post('/products',data,function(){alert('saved')})
-                                    }
-                                    
-                                }
-                                            
-                            
+</script>
 
 
 
+<script id="product_categories" type="text/x-handlebars-template">
+  <div id='categoriesTable' class=".col-md-6"> 
+      
 
+        \{{#each productCategories}}
+        <h4 class="label label-default"> \{{name}} </h4>
+        \{{/each}}
+       
 
+    </div>  
+</script>
 
-                        });
-                
-                  $('#newProduct').click(function(){
-                    $("#dialog").css({position:'fixed',zIndex:'50',width:'auto',height:'auto',backgroundColor:'rgba(255,153,0,0.9)',border:'3px solid black',padding:'1%',color:'black',fontSize:'1vw',borderRadius:'20px',listStyle:'none',visibility:'visible',marginLeft:'auto',marginTop:'-60%',left:'40%',right:'40%',textAlign:'center',transition:'all .5s linear'})
-                    var formHtml ="<form id='pf' action='products' method='post'>"+
-                                  "Name <input type='text' name='productName' placeholder='product name'> "+
-                                  "Category <select id='categoryOptions'> "
-                                  Categories.forEach(function(category){
-                                      formHtml+=("<option value=\'"+category+"\'>"+category+"</option>");
-                                  })
-
-                                  formHtml+="</select></form>"
-                                  formHtml+="<div id='close'>right click close</div>"
+<script id="add-Products" type="text/x-handlebars-template">
+    <div id='addDiv' class='col-md-8'>
+        <h1> Add new Product </h1>
+       
+           <h4> Product Name </h4>
+           <input type='text' id='_name'>
+           <h4> Select Product Category </h4>
+           <select id='newCtgry'>
               
-                    $('#dialog').children().css({
-                                            background:'black',
-                                            color:'white',
-                                            borderRadius:'3px',
-                                            border:'1px solid orange'
-                                          })
-                    $('#dialog').html(formHtml)
+              \{{#each productCategories}}
+               <option value="\{{id}}" >\{{name}}</option>
+              \{{/each}}
 
-                    var $options = $("#categoryOptions");
-                    f
+           </select>
+           <button type='submit' id='newProdBtn' class='btn btn-warning' onclick="postProduct('#_name','#newCtgry')">Save </button>
+        
+    </div>
+</script>
 
-                  })
-                        
-          
-          
-          
-          
-  </script>
+<script id='delete-product' type="text/x-handlebars-template">
+  <div id='deleteDiv'>
+      <h1> Delete Product </h1>
+      <select id='deleteProductSelect'>
+
+         \{{#each products}}
+         <option id='\{{prodID}}' value='\{{prodID}}' class='\{{name}}'>\{{name}}</option>
+         \{{/each}}
+ 
+      </select>
+     <button type='submit' id='deleteProdBtn' class='btn btn-warning' onclick="deleteProduct('#deleteProductSelect')"> Delete
+     </button>
+  </div>
+
+</script>
+
+<script type='text/javascript'> 
+    
+    $(function(){       
+        getProductList();
+        getProductCategories();
+        getProductPerfomances();
+        PrepareNewProduct();
+        PrepareProductDeletion();
+    })
   
-</div>
-
-</div>
-
+</script>
+<script src="/templating.js"></script>
 
 
 
@@ -292,93 +145,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-<div id='backOptsProfits'>
-
-<div  class="btn-group-vertical" id='f'><li><h3>Most Profitable product</h3></li></div>
-  <div class='list-item'>
-        <img src="./images/{{mostPopularProd.Image}}"/> &nbsp{{mostPopularProd.Name}}&nbsp({{mostPopularProd.Quantity}} sold)
-        <div id='order'>
-        <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              Options <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Order </a></li>
-            <li><a href="#">Supplier Details</a></li>
-            <li><a href="#">Compare Prices</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Product perfomance</a></li>
-        </ul>
-  </div>
-  </div>
-  
-</div>
-
-<div  class="btn-group-vertical"><li><h3>Least Profitable product</h3></li></div>
-  <div class='list-item' ><img src="./images/{{leastPopularProd.Image}}"/> &nbsp{{{leastPopularProd.Name}}}&nbsp({{{leastPopularProd.Quantity}}} sold)
-  <div id='order'>
-  <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        Options <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-          <li><a href="#">Order </a></li>
-          <li><a href="#">Supplier Details</a></li>
-          <li><a href="#">Compare Prices</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Product perfomance</a></li>
-      </ul>
-  </div>
-  </div>
-</div>
-
-
-<div  class="btn-group-vertical"><li><h3>Most Profitable category</h3></li></div>
-  <div class='list-item'><img src="./images/{{mostPop.Image}}"/> &nbsp{{{mostPop.ItemName}}}&nbsp({{{mostPop.UnitsSold}}} sold)
-  <div id='order'>
-  <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        Options <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-          <li><a href="#">Order </a></li>
-          <li><a href="#">Supplier Details</a></li>
-          <li><a href="#">Compare Prices</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Category perfomance</a></li>
-      </ul>
-  </div>
-  </div>
-
-</div>
-
-<div  class="btn-group-vertical"><li><h3>Least Profitable category</h3></li></div>
-   <div class='list-item'><img src="./images/{{leastPop.Image}}"/> &nbsp{{{leastPop.ItemName}}}&nbsp({{{leastPop.UnitsSold}}} sold)
-   <div id='order'>
-  <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        Options <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-          <li><a href="#">Order </a></li>
-          <li><a href="#">Supplier Details</a></li>
-          <li><a href="#">Compare Prices</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Category perfomance</a></li>
-      </ul>
-  </div>
-  </div>
-</div>
-</div>
-<span id="dialog"></span>
-</div>
-{{{body}}}

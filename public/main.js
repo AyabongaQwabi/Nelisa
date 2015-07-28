@@ -1,58 +1,10 @@
         $(document).ready(function(){
 
-
-
-
-        //------- Set up slide toggle for products options------------//
-
-            $(".btn-group-vertical:eq(0)").click(function(){
-                    $(".list-item:eq(0)").slideToggle("fast");
-            });
-
-            $(".btn-group-vertical:eq(1)").click(function(){
-                    $(".list-item:eq(1)").slideToggle("fast");
-            });
-
-            $(".btn-group-vertical:eq(2)").click(function(){
-                    $(".list-item:eq(2)").slideToggle("fast");
-            });
-
-            $(".btn-group-vertical:eq(3)").click(function(){
-                    $(".list-item:eq(3)").slideToggle("fast");
-            });
-
-
-
+        
         //-------- animating the products page on load ------------//
 
-            $('#backOpts').animate({marginLeft:'160px'})
-            $('#backOptsProfits').animate({marginRight:'14%'})
-            $('.showButton').animate({right:'38%'})
-
-
-
-
-        //-------- create close button for products table ----------//
-
-             $('.exitButton').css({visibility:'hidden',
-                            color:'orange',
-                            fontSize:'1em',
-                            fontWeight:'300',
-                            width:'auto',
-                            height:'auto',
-                            position:'absolute',
-                            marginLeft:'90%',
-                            background:'black',
-                            border:'2px solid orange',
-                            zIndex:'1',
-                            padding:'1%',
-                            marginTop:'1%',
-                            borderRadius:'30px',
-                            textAlign:'center',
-                            
-                            })
             
-           
+            $('.showButton').animate({right:'38%'})
 
 
 
@@ -117,41 +69,6 @@
 
 
 
-            
-
-
-
-
-        //--------------  when  editing  ---------------------//
-            $('#dialog').mousedown(function(e){ 
-                        if( e.button == 2 ) { 
-
-                                if($('div').css('webkitFilter') !='blur(0px)sepia(0)'){
-                                    $('div').css({'webkitFilter':'blur(0px)sepia(0)'})
-                                    $('#dialog').css('visibility','hidden')
-                                }                        
-                                $('#dialog').css({'visibility':'hidden'})
-                    }
-
-
-               });
-            
-            
-        
-
-
-
-        //------- extra Styling the products table --------------------------//
-
-            $('#prods').css({opacity :'0'})
-
-            $('#prods').css({transform :'scale(0.9)'})
-
-
-
-
-
-
         //------- click event for view products table button --------------//
 
             function showScreen(buttonId, target){
@@ -186,21 +103,7 @@
             showScreen("#showSuppliers", "#suppliers");
 
 
-            /*
-            $("#showButton").click(function(){
-
-                    $(this).css('visibility','hidden');
-                    $('#prods').animate({opacity:'1'})
-                    $('#prods').css('visibility','visible');
-                    $('#prods').css({transform :'scale(1)'})
-                    $('#prods').animate({left:'1%'})
-                    $('#backOpts').animate({marginLeft:'5%'})
-                    $('#backOptsProfits').animate({marginRight:'8%'})
-                    $('#exit').css('visibility','visible')
-
-            })
-            */
-
+            
             $('#home').css({background:'orange',
                             borderRadius:'50px',
                             padding:'30%',

@@ -1,0 +1,170 @@
+<div id='prods'>
+<div class="container">
+  
+             
+ 
+
+  <form id='pf' action='products' method='post'>
+
+
+  <table class="table" id='productsTable'>
+   
+
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>        
+        <th>Price</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {{#each products}}
+
+      <tr id='{{prodID}}'>      
+        <td id='productName'>
+        <input type="text" name="name" value="{{name}}">        
+        <div class="glyphicon glyphicon-pencil"></div>
+        </td>        
+
+        <td id='productCat'>
+        <input type="text" name="price" value="{{category}}">
+        <div class="glyphicon glyphicon-pencil"></div>        
+        </td>   
+
+        <td id='productPrice'><input type="text" name="category" value="{{price}}">        
+        </td>       
+
+      </tr>
+
+
+
+        
+
+      {{/each}}
+
+
+
+
+      </tbody>
+  </table>
+  </form>
+
+
+  var source   = $("#editPopup").html();
+  var template = Handlebars.compile(source);
+
+  <script type='text/javascript'>
+          $.fn.center = function () {
+
+             this.css("position","absolute");
+             this.css("top", ( $(window).height() - this.height() ) / 2  + "px");
+             this.css("left", ( $(window).width() - this.width() ) / 2 + "px");
+             return this;
+
+          }
+
+
+          $.get('/categories', codeThatNeedCategories);
+
+     function  codeThatNeedCategories(Categories){
+
+
+        popup('inccorect cat',categories)
+
+        $('.table tr').keypress(function(e) {
+                    
+                            var catVal = $(this).children('td:nth-of-type(2)').find('input').val();
+
+                            if( e.which == 13) 
+                                {   
+
+                                    if(!_.any(Categories, { name : catVal}))
+                                    {
+                                        alert('non existant category')
+                                        $("#dialog").css({position:'fixed',zIndex:'50',width:'auto',height:'auto',backgroundColor:'rgba(255,153,0,0.9)',border:'3px solid black',padding:'1%',color:'black',fontSize:'1vw',borderRadius:'20px',listStyle:'none',visibility:'visible',marginLeft:'auto',marginTop:'-60%',left:'40%',right:'40%',textAlign:'center',transition:'all .5s linear'})
+
+                                        var catStr =''
+
+                                        Categories.forEach(function(cat){
+                                            catStr+=("<li style='color:white;'>"+cat.name +'</li>')
+                                        })
+                                        
+                                        catStr+="<button type='submit' class='btn .btn-danger'>'Add as New'</button>"
+                                        catStr+="<p id='closeSpan'>click anywhere to close</p>"
+
+                                        var html = template(Categories);
+
+                                        $('#dialog').html(('<b>Category does not exist<br>available categories</b> <span>'+catStr+'</span>'))
+
+                                        $('#closeSpan').css({
+                                            background:'black',
+                                            color:'white',
+                                            borderRadius:'3px',
+                                            border:'1px solid orange'
+                                          })
+
+
+                                        $('#prods').css({'webkitFilter':'blur(2px)'})
+                                    }
+                                    else
+                                    { 
+                                      //alert('index :'+Categories.indexOf(catVal)+' val:'+catVal)
+                                        var prodId   =$(this).attr('id')
+                                        var newName  =$(this).find('td:first-of-type').find('input').val();
+                                        var newPrice =$(this).find('td:nth-of-type(3)').find('input').val();
+                                        var newCat   =$(this).find('td:nth-of-type(2)').find('input').val();
+
+                                        var data     ={id:prodId,name:newName,price:newPrice,cat:newCat}
+                                        alert(JSON.stringify(data));
+                                        $.post('/products',data,function(){alert('saved')})
+                                    }   
+                                }
+                        });
+                
+                  $('#newProduct').click(function(){
+
+
+                        $("#dialog").css({position:'fixed',zIndex:'50',width:'30vw',height:'auto',backgroundColor:'rgba(255,153,0,0.9)',border:'3px solid black',padding:'1%',color:'black',fontSize:'2vw',fontWeight:'900',borderRadius:'20px',listStyle:'none',textShadow:'1px 1px white',visibility:'visible',marginLeft:'auto',marginTop:'-60%',left:'40%',right:'40%',textAlign:'center',transition:'all .5s linear',boxShadow:'5px 10px 400px 10px black'})
+
+
+
+                        var formHtml ="<form id='pf' action='products' method='post'>"+
+                                      "Product Name <input type='text' name='productName' id='newProductname'> "+
+                                      "Category <select id='categoryOptions'> "
+
+                                      Categories.forEach(function(category){
+                                          formHtml+=("<option value=\'"+category+"\'>"+category.name+"</option>");
+                                      })
+
+                                      formHtml+="</select></form>"
+                                      formHtml+="<button id='addBtn' type='submit' class='btn btn-warning'>save</button>"
+
+                         $('#dialog').animate({opacity:'1'}) 
+                         
+                         $('#dialog').html(formHtml)
+                         $('#close').css({background:'black',color:'white',fontSize:'1vw'}) 
+                         $('#dialog input ,option,button').css({background:'black',color:'white',border:'1px solid white',width:'20vw'})
+                         
+                         $('#addBtn').click(function(){
+
+                               var newName  =$('#newProductname').val();                              
+                               var newCat   =$('#categoryOptions').val();
+                               var data     ={name:newName,cat:newCat}
+
+                               alert(JSON.stringify(data));
+                               $.post('/products/add',data,function(){alert('saved')})
+                               $('#dialog').animate({opacity:'0'})                      
+                               $('#dialog').css({'visibility':'hidden'})
+                          })
+                  });
+
+     }     
+                        
+          
+          
+          
+          
+  </script>  
+</div>
+</div>

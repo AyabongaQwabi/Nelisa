@@ -12,6 +12,24 @@
 	margin-bottom: 1.7%;
 	outline: 0;
 }
+#main{
+	 z-index: 1;
+	 left:15%;
+	 float:left;
+	 width:50vw;
+
+	}
+	#first{
+		background:url('blkblur.jpg');
+	    background-size: cover;
+	    padding:20% 25%;
+	    color:orange;
+	    height:50vh;
+	    font-size: 15vw;
+	    font-weight:bold;
+	    width:58vw;
+	    border:2px solid orange;
+	}
 #navli{
 	
 	width:90%;
@@ -33,95 +51,6 @@
 	color:orange;
 	
 	text-shadow:1px 1px orange;
-}
-.btn-group-vertical{
-	display: inline;
-	cursor: pointer;
-	font-family: 'Dosis', sans-serif;
-	margin-top: -3%;
-	padding-bottom: 1%;
-	border-bottom:2px solid orange;
-	margin-left: -30%;
-	background:black;
-	box-shadow: 1px 1px 1px 1px black;
-	width: 160%;
-	height:10%;
-	list-style: none;
-	text-align: center;
-	color: #FFFFCC;
-	transform:scale(.6);
-	transition:transform 2s ease-in-out;
-
-} 
-.btn-group-vertical:hover{
-	
-	box-shadow: 2px 3px 80px 5px orange;
-	border-top-left-radius:20px; 
-	border-top-right-radius:20px;
-	text-shadow:1px 1px orange;
-	transition:transfrom .6s linear;
-
-}
-.list-item{
-	background:black;
-	color:orange;
-	width: 162%;
-	height: auto;
-    font-family: 'Dosis', sans-serif;
-    box-shadow: 1px 1px 10px 1px black;
-    display: none;
-    margin-left: -30%;
-    margin-top: -25;   
-    font-weight: 900;
-    font-size: 2vw;
-    padding-top: 1.5%;
-    transform:scale(.6);
-	transition:transform 2s ease-in-out;
-
-}
-.list-item img{
-	max-width: 50%;
-	max-height: 120%;
-	border:2px solid orange;
-	margin-left: 2%;
-	border-radius: 10px;
-	
-}
-#backOpts{
-	background:black;
-	height:200%;
-	width:20%;
-	margin-top: 10%;
-	float:left;
-
-	border-radius: 5%;
-	box-shadow: 1px 1px 3px 1px black;
-}
-#backOptsProfits{
-	background:black;
-	height:200%;
-	width:20%;
-	margin-top: -55%;
-	float:right;
-    margin-right: 0;
-	border-radius: 5%;
-	box-shadow: 1px 1px 3px 1px black;
-	position: relative;
-}
-#prods{
-	background:rgba(0,0,0,0.95);
-	overflow:hidden;
-	position:relative;
-	margin-left: 23%;
-	margin-top: -1%;
-	width:45%;
-	border-radius: 10px;
-	border:1px solid black;
-	font-family: 'Dosis', sans-serif;
-	font-weight: 500;
-	box-shadow: 1px 1px 3px 1px black;
-	visibility:hidden;
-	transition:all 1s linear;
 }
 #sales{
 	background:rgba(0,0,0,0.95);
@@ -179,14 +108,24 @@
 	padding: 0%;
 }
 #productsTable.table{
-	margin-left: -20%;
-	margin-top: -15%;
+	
+	
 	width:100%;
-	transform:scale(0.6);
-	transition:transform 1s;
+	border:4px solid orange;
+	transition:all 1s;
+	color:orange;
+	background:url('blkblur.jpg');
+	background-size: cover;
+	overflow: hidden;
 	
 	
 }
+#tableHead{
+	font-size: 1.3vw;
+	background:orange;
+	color:black;
+}
+
 #salesTable.table{
 	margin-left: 0%;
 	margin-right: initial;
@@ -199,6 +138,7 @@
 	
 	
 }
+
 #suppliersTable.table{
 	margin-left: -1%;
 	margin-right: initial;
@@ -225,10 +165,73 @@
 }
 #editOptions {visibility: hidden;}
 
+#perfomancesTable{
+	overflow: hidden;
+	margin-top:10%;
+	text-align: center;
+	width:100%;
+	color:white;
+	background:url('blkblur.jpg');
+	background-size: cover;
+	border:4px solid orange;
+
+}
+#perfomancesTable h3{
+	border:1px solid orange;
+	background:url('orblur.jpg');
+	background-size: cover;
+	color:black;
+}
+
+#categoriesTable{
+
+	overflow: hidden;
+	padding:10%;
+    text-align: left;
+	width:100%;
+	color:white;
+	background:url('blkblur.jpg');
+	background-size: cover;
+	border:4px solid orange;
+	
+	
+	
+}
+
+#categoriesTable h4{
+	
+	font-weight: 900;
+	font-size:4.5vw;
+	
+	background:rgba(0,0,0,0.0);
 
 
+}
 
+#addDiv{
+	padding: 3%;	
+	text-align: center;
+	width:100%;
+	color:orange;
+	background:url('blkblur.jpg');
+	background-size: cover;
+	border:4px solid orange;
 
+	
+}
+#deleteDiv{
+	padding: 5%;
+	margin-top:10%;
+	text-align: center;
+	width:100%;
+	color:orange;
+background:url('blkblur.jpg');
+	background-size: cover;
+	border:4px solid orange;
+
+	font-size: 2vw;
+
+}
 .table th{
 	font-family: 'Orbitron', sans-serif;
 	font-size: 2vw;
@@ -252,10 +255,13 @@
 }
 
 input{
+	background:rgba(255,165,0,0.1);
+	border:none;
+}
+.table tr td input{
 	background:none;
 	border:none;
 }
-
 .table tr td{
 	color:white;
 	font-size: 1.5vw;
@@ -295,7 +301,7 @@ input{
 
 .wide{
 
-	background: url('ill.gif');
+background:url('blkblur.jpg');
 	background-size: cover;
 	top:-100%;
 	height:5%;
@@ -355,25 +361,7 @@ body{
 }
 
 
-.glyphicon-chevron-right{
-	
-	position: absolute;
-	margin-left: 50%;
-	margin-top: -50%;
-	color:red;
-	width:20vw;
-	height:20vw;
-	font-size: 12vw;
-}
-.glyphicon-chevron-left{
-	position: absolute;
-	margin-left: -230%;
-	margin-top: -50%;
-	color:red;
-	width:20vw;
-	height:20vw;
-	font-size: 12vw;
-}
+
 .btn-group>.btn:first-child  {
 	margin-left:20%; 
 }
@@ -393,19 +381,14 @@ body{
 	border-bottom-left-radius: 20%;
 
 }
-.glyphicon-globe{
-	font-size: 150%;
-}
-.glyphicon-heart-empty{
-	font-size: 150%;
-}
+
 #footer{
 	width:100%;
-	height:50%;
+	height:80%;
 	background:black;
 	color:white;
 	text-align: center;
-	padding:10%;
+	padding:15%;
 	position: relative;
 	display: inline-block;
 	border-top: 3px solid orange;
@@ -451,20 +434,26 @@ body{
 	background:white;
 	color: black;
 	box-shadow: 1px 1px 30px 13px black;
-};
+}
 
 
 .exitButton{
-	width:2%;
-	height:3%;
-	position: absolute;
-	color:orange;
-	background:black;
 
-	border-radius:50px;
-	padding:5%;
-	border:2px solid white;
-	cursor: pointer;
+	visibility:hidden;
+    color:orange;
+    font-size:1em;
+    font-weight:300;
+    width:auto;
+    height:auto;
+    position:absolute;
+    margin-left:90%;
+    background:black;
+    border:2px solid orange;
+    z-index:1;
+    padding:1%;
+    margin-top:1%;
+    border-radius:30px;
+    text-align:center ;   
 }
 
 .exitButton:hover{
@@ -483,14 +472,6 @@ body{
 	margin-right: 1%;
 }	
 
-#closeSpan:hover{
-		transform:scale(1.2);
-		transsition:transform 1s;
-};
-
-#dialog{
-	transition:all 1s linear;
-};
 
 
 
@@ -520,10 +501,25 @@ body{
 	}
 }
 
-#newProduct{
-	margin-left: -15%;
-	margin-top:-2%;
-	padding:1%;
-	color:black;
-	font-weight: 900;
+#productsMenu{
+	color:black;	
+
+	margin-left: -10%;
+
 }
+
+#productsMenu button{
+	background:url('orblur.jpg');
+	background-size: cover;
+	height:10vh;
+	width:120%;
+	font-weight: 900;
+	border:4px solid black;
+	margin-left: 1%;
+	top:20%;
+	
+}
+#productsMenu button:last-of-type{
+	background: red;
+	visibility:hidden;
+};

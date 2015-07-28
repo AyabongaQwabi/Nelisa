@@ -8,7 +8,9 @@
             var Spaza = require('./spaza');
             var source = require('./source')
             var mysql = require('mysql');
-
+            var productsFunction = require('./routes/products')
+            var salesFunction = require('./routes/sales')
+            var purchasesFunction = require('./routes/purchases')
 
 //------------------ initialize objects ----------------------------------------------//
 
@@ -23,7 +25,7 @@
 
 
             myConnection = require('express-myconnection');
-            database = require('./database');
+            //database = require('./database');
             var dbOptions = {
                 host : "localhost",
                 user : "root",
@@ -102,6 +104,19 @@
  
 
 
+            app.get('/categories', function (req, res) {
+                    var connection = mysql.createConnection(dbOptions)
+                    connection.connect();
+                    connection.query("select * from categories",function(Err,results){
+
+                       
+                        res.send(results);
+                        
+                    });
+            });
+
+
+
 
 
 
@@ -110,12 +125,12 @@
             app.get('/products', function (req, res) {
                     var connection = mysql.createConnection(dbOptions)
                     connection.connect();
-                    connection.query("select distinct products.name as name,categories.id as catid,sales.price as price ,categories.name as category,sales.product_id as prodID from sales, products,categories where products.id=sales.product_id and products.category_id = categories.id",function(Err,results){
+                    connection.query("select products.name as name,categories.id as catid,categories.name as category,products.id as prodID from products,categories where products.category_id = categories.id ORDER BY  categories.id ASC ",function(Err,results){
 
                         var newConnection = mysql.createConnection(dbOptions);
                         newConnection.connect();
                         var products = results;
-                        newConnection.query('select name from categories',function(err,results){
+                        newConnection.query('select * from categories',function(err,results){
                             
                             console.log('Client requests products page')
                             var categories = results;   
@@ -229,21 +244,23 @@
             });
 
              //setup the products handlers
-            app.post('/products/add', products.add);
-        
-            app.get('/products/delete/:id', products.delete);
+           
+            app.post('/products/add', productsFunction.add);    
+            app.post('/products/delete', productsFunction.delete);      
+            app.get('/products/all', productsFunction.get);
+            app.post('/products/update', productsFunction.update);
 
             //setup the sales handlers
-            app.get('/sales/edit/:id', sales.get);
-            app.post('/sales/add', sales.add);
-            
-            app.get('/sales/delete/:id', sales.delete);
+
+            app.get('/sales/edit/:id', salesFunction.get);
+            app.post('/sales/add', salesFunction.add);            
+            app.get('/sales/delete/:id', salesFunction.delete);
 
             //setup the purchases handlers
-            app.get('/purchases/edit/:id', purchases.get);
-            app.post('/purchases/add', purgases.add);
 
-            app.get('/purchases/delete/:id', purchases.delete);
+            app.get('/purchases/edit/:id', purchasesFunction.get);
+            app.post('/purchases/add', purchasesFunction.add);
+            app.get('/purchases/delete/:id', purchasesFunction.delete);
 
 
 

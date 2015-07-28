@@ -1,6 +1,6 @@
 
-<span id='showSales' class='showButton'>View <br/>sales list</span>
- <div id='exitSales' class='exitButton'>close table</span></div>
+<span class='showButton' id='showSales' >View <br/>sales list</span>
+<span class='exitButton' id='exitSales'>close table</span>
 <div id='sales'>
 
  <div class="container">
@@ -8,29 +8,25 @@
     
 
   <table class='table' id='salesTable'> 
-
     <thead>
-
       <tr> 
-
          <th>date</th>
          <th>name</th>
          <th>quantity</th>
          <th>price</th>
       </tr>
     </thead>
-
     <tbody>
+
       {{#each sales}}
-
       <tr>
-
          <td>{{date}}</td>
          <td>{{name}}</td>
          <td>{{quantity}}</td>
          <td>{{price}}</td>
       </tr>  
      {{/each}}
+
     </tbody>
   </table>
 

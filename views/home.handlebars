@@ -32,9 +32,9 @@ function swapImage(){
 		var el = document.getElementById("mydiv"); 
 		el.innerHTML=caption[i]; 
 		var img= document.getElementById("slide"); 
-		img.style.opacity ='0';
+
 		img.src= image[i];
-		img.style.opacity ='1';
+
 		if(i < k ) { i++;} 
 		else  { i = 0; } 
 		setTimeout("swapImage()",3000);  

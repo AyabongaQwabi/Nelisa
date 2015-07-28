@@ -26,33 +26,34 @@ exports.add = function (req, res, next) {
 		}
 		
 		var input = JSON.parse(JSON.stringify(req.body));
-		var data = {name : input.name,category_id:input.cat};
-       	var queryStr ='insert into products set ?'
-		console.log	(JSON.stringify(data))
-		connection.query(queryStr, data, function(err,results){
-			res.send({});
-			console.log("-------ERR:"+err)
-			console.log("-------results:"+results)
-		})
+		var data = {
+            		description : input.description,
+        	};
+		connection.query('insert into products set ?', data, function(err, results) {
+        		if (err)
+              			console.log("Error inserting : %s ",err );
+         
+          		res.redirect('/products');
+      		});
 	});
 };
 
 exports.get = function(req, res, next){
 	var id = req.params.id;
 	req.getConnection(function(err, connection){
-		connection.query('select products.name as name,categories.id as catid,categories.name as category,products.id as prodID from products,categories where products.category_id = categories.id ORDER BY  categories.id ASC', function(err,rows){
-			
-			res.send(rows);      
+		connection.query('SELECT * FROM products WHERE id = ?', [id], function(err,rows){
+			if(err){
+    				console.log("Error Selecting : %s ",err );
+			}
+			res.render('edit',{page_title:"Edit Customers - Node.js", data : rows[0]});      
 		}); 
 	});
 };
 
 exports.update = function(req, res, next){
-   console.log("------UPDATING")
-	var data =req.body;
-	console.log("DATA :"+JSON.stringify(data))
-    	var id = req.body.id;
-    	console.log("############# ID:"+id)
+
+	var data = JSON.parse(JSON.stringify(req.body));
+    	var id = req.params.id;
     	req.getConnection(function(err, connection){
     		connection.query('UPDATE products SET ? WHERE id = ?', [data, id], function(err, rows){
     			if (err){
@@ -65,8 +66,7 @@ exports.update = function(req, res, next){
 };
 
 exports.delete = function(req, res, next){
-	var id = req.body.id;
-	console.log('deleting from products table id :'+id)
+	var id = req.params.id;
 	req.getConnection(function(err, connection){
 		connection.query('DELETE FROM products WHERE id = ?', [id], function(err,rows){
 			if(err){
