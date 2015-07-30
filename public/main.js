@@ -1,6 +1,8 @@
         $(document).ready(function(){
 
-        
+           $('#logout').click(function(){
+                window.location.href='/logoutuser'
+            })
         //-------- animating the products page on load ------------//
 
             

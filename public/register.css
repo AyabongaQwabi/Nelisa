@@ -1,0 +1,49 @@
+body{
+	background:url('bb.png') center center no-repeat;
+	background-size: cover;
+	padding:4%;
+	color:white;
+}
+
+#main{
+	background:rgba(255,165,0,0.9);
+	color:black;
+	font-family: 'Sans';
+	padding:3%;
+	width:50%;
+	height: auto;
+	border-radius:20px;
+	border-top: 30px solid black;
+	border-bottom: 30px solid black;
+	box-shadow:1px 1px 10px 5px black;
+}
+h1{
+	font-weight: 900;
+	text-shadow:2px 1px black;
+}
+h4{
+
+	margin-right: 10%;
+	display:block;
+}
+.label{
+	font-size: 2em;
+	background: black;
+}
+
+input{
+	display:block;
+	padding: 1%;
+	outline:none;
+	width:80%;
+	border-radius:10px;
+	border:none;
+	text-align: center;
+	font-size: 130px;
+}
+button{
+	display:inline;
+	width:30%;
+	background:orangered;
+	
+}
