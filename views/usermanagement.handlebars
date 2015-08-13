@@ -1,0 +1,125 @@
+<html>
+	<head>
+	<title> Login </title>
+	<link rel='stylesheet' type='text/css' href='usermanagement.css'>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="/handlebars-v3.0.3.js"></script>
+    <script src="/useractions.js"></script>
+	</head>
+ 		
+	<body>
+		
+	
+		<div class='container' id ='main'>
+			
+			<div id='controls'>
+			<h1 id='heading'> <b>USER MANAGEMENT</b></h1>
+			<button type='button' id="addUser" class='btn' onclick="window.location='/register'">Add new</button>
+			<button type='button' id="exit" onclick="window.location='/'" class='btn' >Exit</button>
+			</div>
+			<div class='contentchild'>
+		  <table class="table" id='usersTable'>
+		   
+		    <thead>
+		      <tr>
+		        <th>Username</th>
+		        <th>Enrty Level</th>        
+		        <th></th>
+		        <th></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		       {{#each users}}
+		        <tr id='{{id}}'>      
+		          <td id='userName'>
+		          <input type="text" id="user_no{{id}}" value="{{username}}">        
+		        
+		          </td>
+		          <td id='entreyLevel'>
+		          
+		          <select id='newCtgry{{id}}'>
+              
+             
+		               <option value="1" >1 . Admin</option>		       		   
+		       		   <option value="2" >2 . Viewer</option>
+		       		 
+
+		          </select>
+		          <script type='text/javascript'>
+		          		$('#newCtgry{{id}} :nth-child({{entry_level}})').prop('selected',true)
+		          </script>
+		          </td>
+
+		          <td id='edit'>
+		          <button type='submit' id='updateUserBtn' class='btn btn-warning' onclick="updateUser('#{{id}}','#user_no{{id}}','#newCtgry{{id}}');">Save</button>
+		                 
+		          </td>
+		          <td id='delete'>
+		          <button type='submit' id='updateUserBtn' class='btn btn-warning' onclick="deleteUser('{{id}}')">delete</button>
+		                 
+		          </td>
+
+
+		        </tr>
+		       {{/each}}
+		    </tbody>
+		  </table>
+		  </div>
+		</div>
+		
+		<div class='container' id ='content'>
+		</div>
+
+
+
+		<script id="userlist" type="text/x-handlebars-template">  
+		  
+		</script>
+
+
+
+		<script id="addUsertemplate" type="text/x-handlebars-template">
+    	<div id='addUserDiv' class='contentchild'>
+        <h1> New User </h1>
+       
+           <h4> username </h4>
+           <input type='text' id='_name'>
+           <h4> Select entry level </h4>
+           <select id='newCtgry'>
+              
+             
+               <option value="1" >1 . Admin</option>
+       		   <option value="2" >2 . Limited Admin</option>
+       		   <option value="3" >3 . Editor</option>
+       		   <option value="4" >4 . Viewer</option>
+       		   <option value="5" >5 . Limited Viewer</option>
+
+           </select>
+           <button type='submit' id='newUserSaveBtn' class='btn btn-warning'  >Save </button>
+           <button type='submit' id='newUserCancelBtn' class='btn btn-warning' onclick='closePopUp();' >Cancel</button>
+    	</div>
+	    </script>
+
+
+
+
+	   
+		  <script type='text/javascript'> 
+	
+		    $(function(){       
+		        getUserList();		        
+		        PrepareNewUser();
+		        PrepareUserDeletion();
+		        $('#content').css({display:'none'})
+		    })
+		  
+		</script>
+		
+		<script src="/userstemplating.js"></script>
+		
+	</body>
+
+</html>

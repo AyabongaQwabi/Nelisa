@@ -27,8 +27,17 @@
   <script src="/handlebars-v3.0.3.js"></script>
   <link rel='stylesheet' href='main.css'>
   <script type='text/javascript' src='actions.js'></script>
-</head>
+  <script type='text/javascript'>
+    var userLevel = {{userEntryLevel}}
+    function userlevel(){
+      return userLevel;
+    }
+    
+   
 
+  </script>
+
+</head>
 
 
 
@@ -42,31 +51,8 @@
 </div>
 
  <nav class="navbar navbar-inverse" id='maino'>
-      <div class="container">
-      <h4 id='username'>Logged in as <span class="label ">{{username}}</span>
-      <button type='button' class='btn' id='logout'>Logout</button>
-      </h4>
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand"  href="#"><i><span style='color:white;'>#Spazashop</span></i></a>
-        </div>
-
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul id ='navli'class="nav navbar-nav">
-            <li><a href="./">HOME</a></li>
-            <li><a href="./suppliers">SUPPLIERS</a></li>
-            <li><a href="./products" onclick="document.">PRODUCTS</a></li>
-            <li><a href="./sales">SALES</a></li>
-            <li><a href="./purchases">PURCHASES</a></li>
-            <li><a href="./profits">PROFITS</a></li>
-            <li><a href="./other">OTHER</a></li>    
-          </ul>
-        </div><!--/.nav-collapse -->
+      <div class="container" id='navLi'>
+      
       </div>
 </nav>
 
@@ -88,13 +74,88 @@
 
 {{{body}}}
 
+<script id='first_navigation' type='text/x-handlebars-template'>
+      <h4 id='username'>Logged in as <span class="label " id='nameEntry'>{{username}} (<i style='color:gold'>{{usertype}}</i>)</span>
+      <button type='button' class='btn' id='logout'>Logout</button>
+      </h4>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand"  href="#"><i><span style='color:white;'>#Spazashop</span></i></a>
+        </div>
 
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul id ='navli'class="nav navbar-nav">
+            <li><a href="./">HOME</a></li>
+            <li><a id='suppliersTab' href="./suppliers">SUPPLIERS</a></li>
+            <li><a id='productsTab'  href="./products" onclick="document.">PRODUCTS</a></li>
+            <li><a id='salesTab' href="./sales">SALES</a></li>
+            <li><a id='purchasesTab'  href="./purchases">PURCHASES</a></li>
+            <li><a id='profitsTab'  href="./profits">PROFITS</a></li>
+            <li><a id='otherTab'  href="./other">OTHER</a></li>    
+          </ul>
+        </div>
+</script>
+
+<script id="second_navigation" type="text/x-handlebars-template">
+      <h4 id='username'>Logged in as <span class="label ">{{username}} (<i style='color:gold'>{{usertype}}</i>)</span>
+      <button type='button' class='btn' id='logout'>Logout</button>
+      </h4>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand"  href="#"><i><span style='color:white;'>#Spazashop</span></i></a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul id ='navli'class="nav navbar-nav">
+            <li><a href="./">HOME</a></li>          
+            <li><a id='productsTab'  href="./products" onclick="document.">PRODUCTS</a></li>
+          
+           
+              
+          </ul>
+        </div>
+</script>
 
 <div id='footer'>
   <h4> Web Application developed by Pretty and Ayabonga</h4>
   <h5><a href='http://www.projectcodex.co'>www.projectcodex.co </a></h5>
 </div>
 </body>
+<script type="text/javascript">
+    if(userLevel==2){
+            useNav2();
+    }
+    else{
+            useNav1();
+        }   
+
+    function useNav1(){
+  
+             var navHtml     = $("#first_navigation").html();            
+             var viewrTemplate = Handlebars.compile(navHtml)
+             var html = viewrTemplate();
+             $('#navLi').html(html)
+             
+    } 
+    function useNav2(){
+           
+             var navHtml     = $("#second_navigation").html();             
+             var viewrTemplate = Handlebars.compile(navHtml)
+             var html =  viewrTemplate();
+             $('#navLi').html(html)
+             
+    }              
+</script>
 
 <script src="main.js"></script>
 </html>

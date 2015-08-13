@@ -8,7 +8,7 @@
         function getProductCategories(){
 
             $('#productCategories').click(function(){
-              $.get('/categories',function(data){
+              $.get('/api/categories',function(data){
                  
                   var html = categoryListTemplate({productCategories:data});
                    $('#main').css({display:'none'})
@@ -36,7 +36,14 @@
 
   //--------------------------------------------------------------------------//
         var count =0;
-        var _productList        = $('#productlist').html();
+        if(userlevel()==2)
+        {
+          var _productList        = $('#limited_productlist').html();
+        }
+        else{
+          var _productList        = $('#productlist').html();
+        }
+        
         var productListTemplate = Handlebars.compile(_productList);
         function getProductList(){
             var productTableIstopen =false;
@@ -61,7 +68,7 @@
         function PrepareNewProduct(){
 
             $("#addProduct").click(function(){
-                $.get('/categories',function(data){
+                $.get('/api/categories',function(data){
                  
                   var html = addProductTemplate({productCategories:data});
                   $('#main').css({display:'none'})

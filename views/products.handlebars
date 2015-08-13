@@ -1,4 +1,4 @@
-<script type='text/javascript' src='productsHandle.js'></script>
+
 <div class = 'container'>
 
 
@@ -77,6 +77,36 @@
 
 </script>
 
+<script id="limited_productlist" type="text/x-handlebars-template">  
+  <table class="table" id='productsTable'>
+    <h4 id='tableHead' class="label label-default">Cannot edit Products</h4>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>        
+        
+      </tr>
+    </thead>
+    <tbody>
+       \{{#each products}}
+        <tr id='\{{prodID}}'>      
+          <td id='productName'>
+          <input type="text" id="prod_name\{{prodID}}" value="\{{name}}">        
+        
+          </td>
+          <td id='productCat'>
+          <input type="text" id="prod_category\{{prodID}}" value="\{{category}}">
+          </td>
+
+         
+
+        </tr>
+       \{{/each}}
+    </tbody>
+  </table>
+
+</script>
+
 
 
 <script id="product_categories" type="text/x-handlebars-template">
@@ -138,7 +168,7 @@
   
 </script>
 <script src="/templating.js"></script>
-
+<script type='text/javascript' src='productsHandle.js'></script>
 
 
 

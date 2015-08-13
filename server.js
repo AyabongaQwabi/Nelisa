@@ -6,12 +6,15 @@
             var bodyParser = require('body-parser')
             var cookieParser = require('cookie-parser')
             var exphbs  = require('express-handlebars');
+            var encrypt = require('bcrypt')
+            var salt = encrypt.genSaltSync(10)
             var get = require('./get')
             var Spaza = require('./spaza');
             var source = require('./source')
             var mysql = require('mysql');
             var productsFunction = require('./routes/products')
             var salesFunction = require('./routes/sales')
+            var usersFunction = require('./routes/users')
             var purchasesFunction = require('./routes/purchases')
 
 //------------------ initialize objects ----------------------------------------------//
@@ -67,21 +70,34 @@
             })
             app.post('/register',function(req,res){
                     var connection = mysql.createConnection(dbOptions)
+                    console.log("REGISTER -->"+JSON.stringify(req.body))
                     connection.query('select * from users',function(err,results){
                         console.log("ERR : "+err)
+                        var nameExist =false;
                         results.forEach(function(result){
-                            if(result.username.toLowerCase()==req.body.name.toLowerCase())
+                            if(result.username.toLowerCase()==req.body.username.toLowerCase())
                             {
                                 console.log(JSON.stringify(result))
-                                res.send({nameExists:true})
-                                return
+                                nameExist=!nameExist
+                                res.sendfile('public/redirect.html')
+                                
                             }
 
                         })
-                        connection.query('insert into users set ?',req.body,function(err,results){
-                                console.log("ERR : "+err)
-                                res.send({nameExists:false});
-                        })
+                        if(!nameExist){
+                            var dat={}
+                            dat['username'] = req.body.username
+                            console.log('encrypting..')
+                            var hashed = encrypt.hashSync(req.body.firstpassword,11)
+                            dat['password']= hashed;
+                            console.log("original: "+req.body.firstpassword+" HASH:"+hashed)
+                            connection.query('insert into users set ?',dat,function(err,results){
+                                    console.log("ERR : "+err)
+                                    res.redirect('/login')
+                            })
+                            console.log('Done encrypting')
+                        }
+                        
                     })
                     
                     
@@ -99,21 +115,52 @@
                     connection.query('select * from users',function(err,results){
                         console.log("ERR : "+err)
                         var Found=false;
-                        
+
                         results.forEach(function(result){                             
-                             console.log(JSON.stringify(req.body))
-                            if(result.username==req.body.name && result.password==req.body.password)
+                           
+                            var hashedPassword =result.password;
+                            var clientPassword =req.body.password;
+
+                            var correctPassword = encrypt.compareSync(clientPassword,hashedPassword)
+                            
+                            if(result.username==req.body.name && correctPassword)
                             {                               
-                                Found=!Found;                                
+                                Found=!Found;
+                                req.session.userEntryLevel = result.entry_level
+                                var usertype ='';
+                                if(req.session.userEntryLevel==1){
+                                    usertype='admin'
+                                }
+                                else{
+                                    usertype='viewer'
+                                }
+                                req.session.usertype=usertype;
+
                             }
 
                         })
                         if(Found){
-                            console.log("FOUND!!!!!!!!!!!!!!!!!!!");
-                             req.session.username = req.body.name
-                             res.redirect('/')
+                            req.session.username = req.body.name
+
+                            if(req.session.userEntryLevel==1)
+                            {
+                               
+                                res.render('usermanagement',{layout:false,users:results})
+                            }
+                            else{
+                                connection.query("select distinct products.name from products",function(err,results){
+                                    res.render('home',{
+                                        products:results,
+                                        username:req.session.username,
+                                        userEntryLevel:req.session.userEntryLevel,
+                                        usertype:req.session.usertype
+                                    });
+                                })   
+                            }
+                             
+                             
                         }else{
-                            res.render('login', {layout: false,corret:Found})
+                            res.render('login', {layout: false,correct:Found})
                            
                         }
                         
@@ -126,20 +173,25 @@
                         res.redirect('/login')
                 })
             })
+
+           
             //user requsets home page
 
             app.get('/',function(req,res){
                 if(req.session.username){
-                        console.log('Client requests home page')   
+                    console.log('Client requests home page')   
                         var connection = mysql.createConnection(dbOptions)
                         connection.connect();
                         connection.query("select distinct products.name from products",function(err,results){
                             res.render('home',{
                                 products:results,
-                                username:req.session.username
-                                });
-                        })   
-                }else{
+                                username:req.session.username,
+                                userEntryLevel:req.session.userEntryLevel,
+                                usertype:req.session.usertype
+                             }) 
+                        })
+                }                         
+                else{
                     res.redirect('/login')
                 }
                 
@@ -165,19 +217,29 @@
 
             app.get('/suppliers', function (req, res) {
                if(req.session.username){
-                        var connection = mysql.createConnection(dbOptions)
-                            connection.connect();
-                            connection.query("select * from suppliers",function(Err,results){
-                            res.render('suppliers', {
-                            suppliers : results,
-                            username:req.session.username
+                    if(req.session.userEntryLevel==1){
+                                console.log('\n\nUser is allowed to view suppliers ')
+                                var connection = mysql.createConnection(dbOptions)
+                                connection.connect();
+                                connection.query("select * from suppliers",function(Err,results){
+                                            res.render('suppliers', {
+                                                        suppliers : results,
+                                                        username:req.session.username,
+                                                        userEntryLevel:req.session.userEntryLevel,
+                                                        usertype:req.session.usertype
 
+                                        });
                         });
-                    });
+                    }
+                    else{res.render('access',{ username:req.session.username,
+                                userEntryLevel:req.session.userEntryLevel,
+                                usertype:req.session.usertype})}
+                        
                 }
                 else{
                     res.redirect('/login')
                 }
+                    
                
          });
  
@@ -205,6 +267,8 @@
             //user requests products page
 
             app.get('/products', function (req, res) {
+                    
+
                     if(req.session.username){
                             var connection = mysql.createConnection(dbOptions)
                             connection.connect();
@@ -235,7 +299,9 @@
                                                                 leastPop: results.pop(),
                                                                 products:products,
                                                                 categories:categories,
-                                                                username:req.session.username
+                                                                username:req.session.username,
+                                                                userEntryLevel:req.session.userEntryLevel,
+                                                                usertype:req.session.usertype
                                                             });
                                             })
 
@@ -283,6 +349,8 @@
             //user requests sales page
             app.get('/sales', function (req, res) {
                 if(req.session.username){
+                     if(req.session.userEntryLevel==1)
+                     {
                         var connection = mysql.createConnection(dbOptions)
                         connection.connect();
 
@@ -293,11 +361,22 @@
                             
                                     res.render('sales', {
                                         sales : results,
-                                        username:req.session.username
+                                        username:req.session.username,
+                                        userEntryLevel:req.session.userEntryLevel,
+                                        usertype:req.session.usertype
                             });
                         });
-                }
-                else{
+                     }
+                     else
+                     {
+                         res.render('access',{ username:req.session.username,
+                                userEntryLevel:req.session.userEntryLevel,
+                                usertype:req.session.usertype})}
+                     }
+                        
+                
+                else
+                {
                     res.redirect('/login')
                 }
                 
@@ -307,20 +386,33 @@
 
              app.get('/purchases', function (req, res) {
                 if(req.session.username){
-                        var connection = mysql.createConnection(dbOptions)
-                        connection.connect();
-                        connection.query("SELECT DATE_FORMAT(purchases.date,'%d %b %y') as date, products.name as product, purchases.price, suppliers.name as supplier FROM purchases, products, suppliers WHERE products.id = purchases.product_id AND suppliers.id = purchases.supplier_id ORDER BY date",
-                            function(err,results){
+                        if(req.session.userEntryLevel==1)
+                        {
+                                var connection = mysql.createConnection(dbOptions)
+                                connection.connect();
+                                connection.query("SELECT DATE_FORMAT(purchases.date,'%d %b %y') as date, products.name as product, purchases.price, suppliers.name as supplier FROM purchases, products, suppliers WHERE products.id = purchases.product_id AND suppliers.id = purchases.supplier_id ORDER BY date",
+                                    function(err,results){
 
 
-                        res.render('purchases', {
-                            purchases : results,
-                            username:req.session.username
+                                res.render('purchases', {
+                                    purchases : results,
+                                    username:req.session.username,
+                                    userEntryLevel:req.session.userEntryLevel,
+                                    usertype:req.session.usertype
 
-                        });
+                                });
 
+                                
+                            });
+                        }
+                        else
+                        {
+                             res.render('access',{ username:req.session.username,
+                                userEntryLevel:req.session.userEntryLevel,
+                                usertype:req.session.usertype})
+                        }
+                     
                         
-                    });
                 }
                 else{
                     res.redirect('/login')
@@ -335,10 +427,24 @@
 
              app.get('/profits', function (req, res) {
                 if(req.session.username){
-                        console.log('Client requests profits page')   
-                        res.render('profits', {username:req.session.username
 
-                        });
+                         if(req.session.userEntryLevel==1)
+                         {
+                                    console.log('Client requests profits page')   
+                                res.render('profits', {
+                                    username:req.session.username,
+                                    userEntryLevel:req.session.userEntryLevel,
+                                    usertype:req.session.usertype
+
+                                });
+                         }
+                         else
+                         {
+                             res.render('access',{ username:req.session.username,
+                                userEntryLevel:req.session.userEntryLevel,
+                                usertype:req.session.usertype})
+                         }
+                        
                 }
                 else{
                     res.redirect('/login')
@@ -351,10 +457,23 @@
 
              app.get('/other', function (req, res) {
                 if(req.session.username){
-                    console.log('Client requests others page')   
-                    res.render('other', {username:req.session.username
-                  
-                });
+                    if(req.session.userEntryLevel==1)
+                         {
+                            console.log('Client requests others page')   
+                            res.render('other', {
+                                username:req.session.username,
+                                userEntryLevel:req.session.userEntryLevel,
+                                usertype:req.session.usertype
+                          
+                        });
+                    }
+                   else
+                  {
+                             res.render('access',{ username:req.session.username,
+                                userEntryLevel:req.session.userEntryLevel,
+                                usertype:req.session.usertype})
+                    }
+                    
                 }
                 else{
                     res.redirect('/login')
@@ -381,6 +500,10 @@
             app.post('/purchases/add', purchasesFunction.add);
             app.get('/purchases/delete/:id', purchasesFunction.delete);
 
+             //setup the users handlers
+            app.post('/users/add', usersFunction.add);    
+            app.post('/users/delete', usersFunction.delete);      
+            app.post('/users/update', usersFunction.update);
 
 
 

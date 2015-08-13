@@ -3,14 +3,24 @@ $(document).ready(function(){
 		$(this).css({padding:'1.5%',background:'lightgrey'})
 	})
 	$('#done').click(function(){
-		validate("#username");	
-			
-		validate("#secpass")
 		
-		if(!validate("#firstpass")){
-
+		if(!hasData("#username")){
+			popUp("Please Fill In All Fields")
+			$("#username").css({background:'tomato'})
+		}				
+		else if(!hasData("#secpass")){
+			popUp("Please Fill In All Fields")
+			$("#secpass").css({background:'tomato'})
+		}		
+		else if(!hasData("#firstpass")){
+			popUp("Please Fill In All Fields")
+			$("#firstpass").css({background:'tomato'})
+		}
+		else{
+		 	
 			if($('#firstpass').val() == $('#secpass').val()){
 				$('form').submit();
+				
 			}
 			else{
 				popUp('Your Passwords do not Match')
@@ -25,11 +35,8 @@ $(document).ready(function(){
 
 
 
-function validate(div){
-		if($(div).val()==''){
-
-			popUp("Please Fill In All Fields")
-			$(div).css({background:'tomato'})
+function hasData(div){
+		if($(div).val()==''){			
 			return false
 		}
 		else{
