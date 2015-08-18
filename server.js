@@ -131,7 +131,8 @@
                     connection.query('select * from users',function(err,results){
                         console.log("ERR : "+err)
                         var Found=false;
-
+                        console.log("\n\nRESULTS:"+results);
+                        console.log("LENGTH :"+results.length+'\n\n')
                         results.forEach(function(result){                             
                            
                             var hashedPassword =result.password;
