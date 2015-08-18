@@ -72,31 +72,47 @@
                     var connection = mysql.createConnection(dbOptions)
                     console.log("REGISTER -->"+JSON.stringify(req.body))
                     connection.query('select * from users',function(err,results){
-                        console.log("ERR : "+err)
-                        var nameExist =false;
-                        results.forEach(function(result){
-                            if(result.username.toLowerCase()==req.body.username.toLowerCase())
-                            {
-                                console.log(JSON.stringify(result))
-                                nameExist=!nameExist
-                                res.sendfile('public/redirect.html')
-                                
-                            }
-
-                        })
-                        if(!nameExist){
-                            var dat={}
-                            dat['username'] = req.body.username
-                            console.log('encrypting..')
-                            var hashed = encrypt.hashSync(req.body.firstpassword,11)
-                            dat['password']= hashed;
-                            console.log("original: "+req.body.firstpassword+" HASH:"+hashed)
-                            connection.query('insert into users set ?',dat,function(err,results){
-                                    console.log("ERR : "+err)
-                                    res.redirect('/login')
-                            })
-                            console.log('Done encrypting')
+                        if(err){console.log("ERR : "+err)}
+                        if(results.length==0){
+                                    var dat={}
+                                    dat['username'] = req.body.username
+                                    console.log('encrypting..')
+                                    var hashed = encrypt.hashSync(req.body.firstpassword,11)
+                                    dat['password']= hashed;
+                                    dat['entry_level']=1;
+                                    console.log("original: "+req.body.firstpassword+" HASH:"+hashed)
+                                    connection.query('insert into users set ?',dat,function(err,results){
+                                            console.log("ERR : "+err)
+                                            res.redirect('/login')
+                                    })
+                                    console.log('Done encrypting')
                         }
+                        else{
+                                var nameExist =false;
+                                results.forEach(function(result){
+                                    if(result.username.toLowerCase()==req.body.username.toLowerCase())
+                                    {
+                                        console.log(JSON.stringify(result))
+                                        nameExist=!nameExist
+                                        res.sendfile('public/redirect.html')
+                                        
+                                    }
+
+                                })
+                                if(!nameExist){
+                                    var dat={}
+                                    dat['username'] = req.body.username
+                                    console.log('encrypting..')
+                                    var hashed = encrypt.hashSync(req.body.firstpassword,11)
+                                    dat['password']= hashed;
+                                    console.log("original: "+req.body.firstpassword+" HASH:"+hashed)
+                                    connection.query('insert into users set ?',dat,function(err,results){
+                                            console.log("ERR : "+err)
+                                            res.redirect('/login')
+                                    })
+                                    console.log('Done encrypting')
+                                }
+                            }
                         
                     })
                     
