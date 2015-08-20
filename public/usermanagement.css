@@ -19,13 +19,17 @@ body{
 	border-right: 15px solid black;*/
 	box-shadow:1px 1px 10px 5px black;
 	margin-left: 15%;
-	margin-top: -5%;
+	margin-top: 0%;
 	position: absolute;
+	border-bottom: 20px solid white;
+    border-top: 20px solid white;
 }
-th{
+thead{
 	background: white;
 	color: black;
 	margin-top: 10%;
+	border-radius: 15px;
+	border-top:1px solid black;
 }
 table{
 	margin-top: 5%;

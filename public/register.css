@@ -1,34 +1,98 @@
 body{
-	background:url('bb.png') center center no-repeat;
-	background-size: cover;
+	
 	padding:4%;
 	color:white;
+	overflow: hidden;
+
 }
 
+@-webkit-keyframes load{
+		0%{
+			border-top-right-radius: 200px;
+	        border-top-left-radius: 1px;
+			border-bottom-right-radius: 1px;
+	        border-bottom-left-radius: 200px;
+		}
+
+		100%{
+		
+			border-top-right-radius: 1px;
+	        border-top-left-radius: 200px;
+	        border-bottom-right-radius: 200px;
+	        border-bottom-left-radius: 1px;
+			
+		}
+}
+@-webkit-keyframes loader{
+		0%{
+			
+			border-top-right-radius: 150px;
+	        border-top-left-radius: 150px;
+		}
+
+		100%{
+			border-top: 40px solid black;
+			border-top-right-radius: 200px;
+	        border-top-left-radius: 200px;
+		}
+}
+
+#toblur{
+	position: absolute;
+	width: 150%;
+	height: 150%;
+	-webkit-filter: contrast(10) saturate(10);
+    -webkit-filter: blur(5px);
+	background:url('bb.png') center center no-repeat;
+	background-size: cover;
+	margin-top: -10%;
+	margin-left: -10%;
+	z-index: -1000;
+}
 #main{
-	background:rgba(255,165,0,0.9);
+	z-index: 1000;
+	background:rgba(255,165,0,1);
 	color:black;
 	font-family: 'Sans';
-	padding:3%;
+	padding:1%;
 	width:50%;
 	height: auto;
-	border-radius:20px;
-	border-top: 30px solid black;
-	border-bottom: 30px solid black;
-	box-shadow:1px 1px 10px 5px black;
+	border-bottom: 20px solid white;
+	border-bottom-right-radius: 250px;
+	border-bottom-left-radius: 250px;
+	border-top: 20px solid white;
+	border-top-right-radius: 200px;
+	border-top-left-radius: 200px;
+	box-shadow: 1px 1px 20px 5px black;
+	-webkit-animation:load 6s alternate infinite;
+
 }
-h1{
+#logindata{
+	
+	padding-left:15%;
+	padding-bottom: 10%;
+}
+h1{	
+	color:orange;
+	font-family: 'Noto Sans', sans-serif;
 	font-weight: 900;
-	text-shadow:2px 1px black;
+	
 }
 h4{
-
+    background: black;
 	margin-right: 10%;
 	display:block;
+	color:white;
+	width:80%;
+	border-radius:5px;
+	text-align: center;
+	padding: 2%;
 }
+
 .label{
 	font-size: 2em;
 	background: black;
+
 }
 
 input{
@@ -36,15 +100,16 @@ input{
 	padding: 1%;
 	outline:none;
 	width:80%;
-	border-radius:10px;
-	border:none;
+	border-radius: 5px;
+	border:2px solid black;
 	text-align: center;
 	font-size: 130px;
 }
 button{
 	display:inline;
 	width:30%;
-	background:orangered;
+	background:white;
+	color:white;
 	
 }
 
@@ -80,4 +145,8 @@ button{
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+#registerForm{
+	transform:scale(0.8);
+	transition:transform 1s linear;
 }

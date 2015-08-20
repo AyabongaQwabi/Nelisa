@@ -16,27 +16,29 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script type='text/javascript' src='login.js'></script>
+    <link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
 	</head>
  		
 	<body>
-
+	<div id='toblur'></div>
 		<div class='container' id ='main'>
 			<form action='/login' method='POST'>
-			<h1> <b>Nelisa's Spazashop</b></h1>
-			<br>
-			<h3><span class="label ">Username</span></h3>
-			<input type='text' name='name' id='username' >
-			<br>
+			<h1> <img src='Nelisas.png'></h1>
+			<div id='logindata'>
+				<h4 style='color:white;'>username</h4>
+				<input type='text' name='name' id='username' >
 		
-			<h3><span class="label ">Password</span></h3>
-			<input type='password' name='password' id='pass' >
-			<br>
 			
-					
-			<button type='button' id="register" class='btn'>Register</button>
-			<button type='button' id="done" class='btn' >Done</button>
+				<h4 style='color:white;'>password</h4>
+				<input type='password' name='password' id='pass' >
+				<br>		
+						
+				<button type='button' id="register" class='btn'>Register</button>
+				<button type='button' id="done" class='btn' >Done</button>
+			</div>
 			</form>
 		</div>
+	
 		<script type='text/javascript'>
 
 	 		var found = {{correct}}
