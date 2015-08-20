@@ -499,7 +499,7 @@
             });
             app.get('/api/products/search/:keys',function(req,res){
                     var keys = req.params.keys.substring(1);
-                    keys +="%"
+                    keys ="%"+keys+"%"
                     console.log("Searching for :"+keys)
                     console.log('Query: '+"select * from products where name like '"+keys+"%'")
                     var connection = mysql.createConnection(dbOptions)
@@ -537,6 +537,27 @@
 
             })
             
+
+            app.get('/api/categoriess/info/:id',function(req,res){
+                    var id = req.params.id.substring(1);
+                    var connection = mysql.createConnection(dbOptions)
+                    connection.connect();
+                    connection.query('select * from categories where id =?',id,function(err,results){
+                            if(err){console.log('ERR(while querying category info) :'+err)}
+                            res.send(results)
+                    })
+            })
+             app.get('/api/products/info/:id',function(req,res){
+                    var id = req.params.id.substring(1);
+                    var connection = mysql.createConnection(dbOptions)
+                    connection.connect();
+                    connection.query('select * from products where id =?',id,function(err,results){
+                            if(err){console.log('ERR(while querying product info) :'+err)}
+                            res.send(results)
+                    })
+            })
+
+
              //setup the products handlers
            
             app.post('/products/add', productsFunction.add);    

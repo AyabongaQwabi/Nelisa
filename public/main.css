@@ -611,8 +611,8 @@ body{
 #results{
 	margin-top: -2%;
 	background:black;
-	
-	width:122%;
+
+	width:100%;
 	font-size: 2vw;
 	color:gold;
 }
@@ -628,4 +628,27 @@ body{
 }
 #closesearch{
 	float:right;
+}
+#ProductInfo{
+	width:122%;
+	border:1px solid orange;
+	background:black;
+	color:white;
+	padding:2%;
+	margin-top: -2%;
+}
+#CategoryInfo{
+	width:122%;
+	border:1px solid orange;
+	background:black;
+	color:white;
+	padding:2%;
+	margin-top: -2%;
+}
+#resultsDiv{
+	background:black;
+	border:1px solid orange;
+	padding:1%;
+	width:122%;
+	margin-top: -2%;
 }

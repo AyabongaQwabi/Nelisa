@@ -158,7 +158,24 @@
      <button type='submit' id='deleteProdBtn' class='btn btn-warning' onclick="deleteProduct('#deleteProductSelect')"> Delete
      </button>
   </div>
+</script>
 
+<script type='text/x-handlebars-template' id='loadProduct'>
+      
+      <div id='ProductInfo'>
+        <button class='btn btn-warning' id='closesearch' onclick='returnOriginalHtml()'>close search</button>
+        <h2>\{{data.name}}</h1>
+        <h2>Category:\{{data.category}}</h>
+        <h2>Price:\{{data.price}}</h2>
+        <h2>Units Sold \{{data.units}}</h2>
+      </div>
+</script>
+
+<script type='text/x-handlebars-template' id='loadCategory'>
+      <div id='CategoryInfo'>
+      <button class='btn btn-warning' id='closesearch' onclick='returnOriginalHtml()'>close search</button>
+        <h1>Information about \{{data.name}} category</h1>
+      </div>
 </script>
 
 <script type='text/javascript'> 

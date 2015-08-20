@@ -8,58 +8,58 @@ if(userlevel()==2){
                      
 $('input#searchbar').keyup(function(e){
     	
-        console.log('\n\n--------------------START------------------------------')
-        var pressed = String.fromCharCode(e.keyCode)
-        console.log('Triggered :'+pressed)
-        var search = $('#searchbar').val();
-        console.log('searching for:'+search)
-        if(search==''){
-        	console.log('search var is empty')
+       
+        var pressed = String.fromCharCode(e.keyCode)        
+        var search = $('#searchbar').val();        
+        if(search==''){        	
         	    var tableHtml ="<table id='results'>"
 	        	tableHtml+="<tr><td><button class='btn btn-warning' id='closesearch' onclick='returnOriginalHtml()'>close search</button></td></tr>"
         		 
-	            tableHtml+='</table>'
-
-	    
-	          $('#main').html(tableHtml)
-	          console.log('\n\n--------------------END------------------------------')
+	            tableHtml+='</table>'	    
+	            $('#main').html(tableHtml)
+	          
         }
         else{
-        	var query ="/api/products/search/:"+search;
-	        console.log('Query:'+query)
+
+        	var query ="/api/products/search/:"+search;	       
 	        $.get(query,function(data){
-	        	console.log('Results:')
-	        	var tableHtml ="<table id='results'>"
-	        	tableHtml+="<tr><td><button class='btn btn-warning' id='closesearch' onclick='returnOriginalHtml()'>close search</button></td></tr>"
+	        	
+	        	var tableHtml = "<div id='resultsDiv'>"+
+	        					"<button class='btn btn-warning' id='closesearch' onclick='returnOriginalHtml()'>close search</button>"+
+	        	                "<table id='results'>"
+	        	
 	        	if(!(data.length>=1)){
 	        		tableHtml+="<tr><td><i> * No results for search *</i></td></tr>"
-	        		console.log('*No results*')
+	        		
 	        	}
 	        	else{
 	        		
 	          		data.forEach(function(dat){
-	          			console.log(dat.name)
+	          			
 	          			if(dat.type=='category'){
-	          				tableHtml+=("<tr style='background:orange;color:black;'><td>"+dat.name+"</td></tr>")
+	          				tableHtml+=("<tr style='background:orange;color:black;'><td onclick=loadPage("+dat.id+",\'"+dat.type+"\')>"+dat.name+"</td></tr>")
 	          			}
 	          			else{
-	          				tableHtml+=("<tr><td>"+dat.name+"</td></tr>")
+	          				tableHtml+=("<tr><td onclick=loadPage("+dat.id+",\'"+dat.type+"\')>"+dat.name+"</td></tr>")
 	          			}
 	            		
 	          		})
 	        	}
 	          
-	          tableHtml+='</table>'
-
-	          console.log('loading data on div')
-	          $('#main').html(tableHtml)
-	          console.log('\n\n--------------------END------------------------------')
+	          tableHtml+='</table></div>'	          
+	          $('#main').html(tableHtml)	          
 	        })
-        }
-        
+        }      
 
     })
 
+
+
+function loadPage(id,type){
+	   console.log('loading page')
+       console.log('id:'+id+' type:'+type)
+       PrepareTemplate(id,type)
+}
 function returnOriginalHtml(){
     	
     	var originalHmtl="<div id='first'><h1> Product Management Section </h1></div>"
