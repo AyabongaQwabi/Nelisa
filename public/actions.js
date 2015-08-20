@@ -17,7 +17,7 @@ function updateProduct(nameDiv,catIdDiv,ID){
 
 
     
-	$.get('/categories',function(data){
+	$.get('/api/categories',function(data){
 			if(!_.any(data,'name',catName)){
 				popUp("Category does not exist")
 			}

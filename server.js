@@ -536,9 +536,7 @@
                     })
 
             })
-            app.get('/s',function(req,res){
-                res.sendFile(__dirname +'/public/searchtest.html')
-            })
+            
              //setup the products handlers
            
             app.post('/products/add', productsFunction.add);    
