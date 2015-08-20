@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `stock_purchases_csv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `purchases_csv` (
-  `shop` varchar(45) NOT NULL,
+  `supplier` varchar(45) NOT NULL,
   `date` varchar(45) NOT NULL,
-  `item` varchar(45) NOT NULL,
+  `product` varchar(45) NOT NULL,
   `quantity` int(11) NOT NULL,
   `cost` varchar(45) NOT NULL,
   `total_cost` varchar(45) NOT NULL
@@ -52,12 +52,11 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `sales_csv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sales_csv` (
-  `day` varchar(20) NOT NULL,
-  `date` varchar(30) NOT NULL,
-  `stock_item` varchar(45) NOT NULL,
-  `no_sold` int(11) NOT NULL,
-  `sales_price`varchar(20) NOT NULL
+CREATE TABLE 'users' (
+  'username' varchar(30) NOT NULL,
+  'password' varchar(1000) NOT NULL,
+  'entry_level' smallint(6) DEFAULT 2,
+   'id' INT NOT NULL PRIMARY KEY AUTO_INCREMENT
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

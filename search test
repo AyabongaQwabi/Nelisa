@@ -1,0 +1,23 @@
+<html>
+	<head>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	</head>
+
+	<input type='text'>
+	<button>go</button>
+	<p>results will be here</p>
+	<script type='text/javascript'>
+
+		$('input').keypress(function(e){
+
+				var search = $('input').val();
+				$.get('/api/products/search/:'+search ,function(data){
+					$('p').html(data.results)
+				})
+
+		})
+
+
+
+
+	</script>	

@@ -1,0 +1,31 @@
+<html>
+	<head>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	</head>
+
+	<input id='x' type='text'>
+	<button>go</button>
+	<div> query will be here </div>
+	<br/>
+	<p>results will be here</p>
+	<script type='text/javascript'>
+
+		$('input').keypress(function(e){
+
+				var pressed = String.fromCharCode(e.keyCode)
+				var search = $('#x').val()+pressed;
+				alert(e.which)
+				var query ="/api/products/search/:"+search;
+				$('div').html(query)
+				$.get(query,function(data){
+					$('p').html(JSON.stringify(data))
+
+				})
+
+		})
+
+
+
+
+	</script>	
+</html>

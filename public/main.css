@@ -584,3 +584,48 @@ body{
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+#search{
+	margin-top:-2%;
+	margin-left:29%;
+	margin-bottom: 1%;
+	background:black;
+	width:59%;
+	border:1px solid orange;
+	padding:0.5%;
+
+}
+
+#search input{
+	width:60%;
+	font-size:1.5em;
+	background:orange;
+	border-top:1px solid white;
+	border-bottom:1px solid white;
+	color:black;
+	font-weight: 600;
+	padding-left: 1%;
+}
+#search h4{
+	
+}
+#results{
+	margin-top: -2%;
+	background:black;
+	
+	width:122%;
+	font-size: 2vw;
+	color:gold;
+}
+#results tr{
+	text-align: center;;
+	border-bottom: 1px solid white;
+	padding:1%;
+}
+#results tr td:hover{
+	box-shadow:1px 1px 10px 1px white;
+	padding:1.4%;
+	cursor: pointer;
+}
+#closesearch{
+	float:right;
+}

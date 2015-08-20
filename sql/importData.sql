@@ -1,5 +1,5 @@
-LOAD DATA INFILE 'Nelisa Sales History.csv' 
-INTO TABLE products 
+LOAD DATA LOCAL INFILE 'Nelisa Sales History.csv' 
+INTO TABLE sales_csv 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'

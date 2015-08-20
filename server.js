@@ -497,7 +497,48 @@
                 }
                 
             });
+            app.get('/api/products/search/:keys',function(req,res){
+                    var keys = req.params.keys.substring(1);
+                    keys +="%"
+                    console.log("Searching for :"+keys)
+                    console.log('Query: '+"select * from products where name like '"+keys+"%'")
+                    var connection = mysql.createConnection(dbOptions)
+               
+                    connection.connect();
+                    connection.query("select * from products where name like ?",keys,function(err,results){
+                            if(err){console.log("ERR :"+err)}
+                            console.log('\n\nresults :'+JSON.stringify(results))
+                            var answer = [];
+                            if(results.length < 1){
+                                console.log('Results length:'+results.length)
+                                answer=[]
+                            }
+                            else{
 
+                                results.forEach(function(result){
+                                    result['type']='product';
+                                    answer.push(result);
+                                })
+                            }
+                            
+                            connection.query("select * from categories where name like ?",keys,function(err,results){
+
+                                if(results.length > 0){
+                                        results.forEach(function(result){
+                                         result['type']='category';
+                                        answer.push(result);
+                                    })
+                                }
+                                console.log('Sending answer:'+JSON.stringify(answer))
+                                res.send(answer)
+
+                            })
+                    })
+
+            })
+            app.get('/s',function(req,res){
+                res.sendFile(__dirname +'/public/searchtest.html')
+            })
              //setup the products handlers
            
             app.post('/products/add', productsFunction.add);    

@@ -39,7 +39,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES('Milk 1l'), ('Imasi'),('Bread'),('Chakalaka Can'),('Gold Dish Vegetable Curry Can'),('Fanta 500ml'),('Coke 500ml'),('Cream Soda 500ml'),('Iwisa Pap 5kg'),('Top Class Soy Mince'),('Shampoo 1 litre'),('Soap Bar'),('Bananas - loose'),('Apples - loose'),('Mixed Sweets 5s'),('Heart Chocolates'),('Valentine Cards'),('Rose (plastic)')
+INSERT INTO `products` (name,category_id) VALUES('Milk 1l',1), ('Imasi',1),('Bread',3),('Chakalaka Can',7),('Gold Dish Vegetable Curry Can',7),('Fanta 500ml',9),('Coke 500ml',9),('Cream Soda 500ml',9),('Iwisa Pap 5kg',6),('Top Class Soy Mince',10),('Shampoo 1 litre',4),('Soap Bar',4),('Bananas - loose',5),('Apples - loose',5),('Mixed Sweets 5s',2),('Heart Chocolates',8),('Valentine Cards',8),('Rose (plastic)',8)
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 

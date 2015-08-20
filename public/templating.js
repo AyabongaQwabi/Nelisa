@@ -56,7 +56,7 @@
                             .fadeIn('fast')
                             .animate({width:'50vw'})
                })
-
+                
             })
 
         }
