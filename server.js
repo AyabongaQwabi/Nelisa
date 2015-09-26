@@ -39,6 +39,14 @@
                 database : "Nelisa"
 
             }
+              var dbOptions2 = {
+                host : "localhost",
+                user : "root",
+                password : "theaya5379",
+                port : 3306,
+                database : "spazas"
+
+            }
 
 
 //-----------------  setup middleware  -----------------------------------------------//
@@ -582,6 +590,84 @@
             app.post('/users/delete', usersFunction.delete);      
             app.post('/users/update', usersFunction.update);
 
+          
+             //-----------------------------------------------------------------//
+            /////////////////////////////////////////////////////////////////////
+           /////////////////////////////////////////////////////////////////////
+
+            app.get('/ang/users/all',function(req,res){
+                 var connection = mysql.createConnection(dbOptions2)
+                    connection.query('select * from user',function(err,results){
+                        res.send(results)
+                    })
+            })
+             app.get('/ang/users/demo',function(req,res){
+                 var connection = mysql.createConnection(dbOptions2)
+                    connection.query('select * from user where id=4',function(err,results){
+                        res.send(results)
+                    })
+            })
+            app.post('/ang/users/add',function(req,res){
+                
+                var connection = mysql.createConnection(dbOptions2)
+                var input = JSON.parse(JSON.stringify(req.body));
+                
+                var queryStr ='insert into user set ?'
+                console.log ('DATA:\n'+JSON.stringify(input))
+                connection.query(queryStr, input, function(err,results){
+                    res.send('Spaza Created!');
+                    console.log("-------ERR:"+err)
+                    console.log("-------results:"+results)
+                })
+            })
+            app.get('/ang/users/demo/purchases', function (req, res) {
+                
+                                var connection = mysql.createConnection(dbOptions)
+                                connection.connect();
+                                connection.query("SELECT DATE_FORMAT(purchases.date,'%d %b %y') as date, products.name as product, purchases.price, suppliers.name as supplier FROM purchases, products, suppliers WHERE products.id = purchases.product_id AND suppliers.id = purchases.supplier_id ORDER BY date",
+                                    function(err,results){
+
+
+                                res.send(results);
+
+                                
+                            });
+                       
+               
+                
+            });
+            app.get('/ang/users/demo/categories', function (req, res) {
+                
+                                var connection = mysql.createConnection(dbOptions)
+                                connection.connect();
+                                connection.query("SELECT DATE_FORMAT(purchases.date,'%d %b %y') as date, products.name as product, purchases.price, suppliers.name as supplier FROM purchases, products, suppliers WHERE products.id = purchases.product_id AND suppliers.id = purchases.supplier_id ORDER BY date",
+                                    function(err,results){
+
+
+                                res.send(results);
+
+                                
+                            });
+                       
+               
+                
+           });
+            app.get('/ang/users/demo/sales', function (req, res) {
+                
+                        var connection = mysql.createConnection(dbOptions)
+                        connection.connect();
+
+                        connection.query("select DATE_FORMAT(sales.date,'%d %b %y') as date, products.name, sales.quantity, sales.price,sales.product_id from sales,products where products.id = sales.product_id order by sales.date desc",
+
+                            function(err,results){
+                                    console.log('Client requests sales page : ' + err)   
+                            
+                                    res.send(results);
+                        });
+                       
+               
+                
+        });
 
 
 app.listen(8080)

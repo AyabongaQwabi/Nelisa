@@ -7,7 +7,7 @@ $(document).ready(function(){
 		if(!hasData("#username")){
 			popUp("Please Fill In All Fields")
 			$("#username").css({background:'tomato'})
-		}				
+		}	z			
 		else if(!hasData("#secpass")){
 			popUp("Please Fill In All Fields")
 			$("#secpass").css({background:'tomato'})
